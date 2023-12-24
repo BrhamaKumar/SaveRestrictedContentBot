@@ -32,7 +32,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
     if "?single" in msg_link:
         msg_link = msg_link.split("?single")[0]
     msg_id = int(msg_link.split("/")[-1]) + int(i)
-    height, width, duration, thumb_path = msg.video.height, msg.video.width, msg.video.duration, acc.download_media(msg.video.thumbs[0].file_id)
+    height, width, duration, thumb_path = 90, 90, 0, None)
     if 't.me/c/' or 't.me/b/' in msg_link:
         if 't.me/b/' in msg_link:
             chat = str(msg_link.split("/")[-2])
@@ -98,7 +98,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 height, width, duration = data["height"], data["width"], data["duration"]
                 print(f'd: {duration}, w: {width}, h:{height}')
                 try:
-                    thumb_path = await screenshot(file, duration, sender)
+                    thumb_path = acc.download_media(msg.video.thumbs[0].file_id)
                 except Exception:
                     thumb_path = None
                 await client.send_video(
