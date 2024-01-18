@@ -6,3 +6,4 @@ cryptg
 tgcrypto
 pyrogram
 python-decouple
+pytz
