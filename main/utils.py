@@ -13,7 +13,6 @@ import os
 from datetime import datetime, date
 import string
 from typing import List
-from bs4 import BeautifulSoup
 import requests
 import aiohttp
 import json
