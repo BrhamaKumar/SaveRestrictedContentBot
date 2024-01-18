@@ -7,3 +7,4 @@ tgcrypto
 pyrogram
 python-decouple
 pytz
+aiohttp
