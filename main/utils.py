@@ -13,7 +13,6 @@ import os
 from datetime import datetime, date
 import string
 from typing import List
-from database.users_chats_db import tech_vj
 from bs4 import BeautifulSoup
 import requests
 import aiohttp
