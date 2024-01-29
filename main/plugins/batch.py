@@ -67,7 +67,7 @@ async def _batch(event):
             try:
                 value = int(_range.text)
                 if value > 50:
-                    await conv.send_message("You can only get upto 100 files in a single batch.")
+                    await conv.send_message("You can only get upto 50 files in a single batch.")
                     return conv.cancel()
             except ValueError:
                 await conv.send_message("Range must be an integer!")
