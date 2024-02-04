@@ -66,8 +66,8 @@ async def _batch(event):
                 return conv.cancel()
             try:
                 value = int(_range.text)
-                if value > 50:
-                    await conv.send_message("You can only get upto 50 files in a single batch.")
+                if value > 75:
+                    await conv.send_message("You can only get upto 75 files in a single batch.")
                     return conv.cancel()
             except ValueError:
                 await conv.send_message("Range must be an integer!")
@@ -80,10 +80,10 @@ async def _batch(event):
 async def run_batch(userbot, client, sender, link, _range):
     for i in range(_range):
         timer = 60
-        if i < 25:
-            timer = 600
-        if i < 50 and i > 25:
-            timer = 1200
+        if i < 45:
+            timer = 300
+        if i < 60 and i > 45:
+            timer = 500
         if not 't.me/c/' in link:
             if i < 25:
                 timer = 60
