@@ -217,6 +217,9 @@ async def get_bulk_msg(userbot, client, sender, msg_link, i):
     await get_msg(userbot, client, Drone, sender, x.id, msg_link, i)
 
 
+# Define the initial channel ID
+channel_id = -1002065486656
+
 @Drone.on(events.NewMessage(incoming=True, pattern='/changechannel'))
 async def changechannel(event):
     global changechannel # Use the global keyword to modify the global variable
