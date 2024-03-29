@@ -44,13 +44,13 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             if msg.media:
                 if msg.media==MessageMediaType.WEB_PAGE:
                     edit = await client.edit_message_text(sender, edit_id, "Cloning.")
-                    await client.send_message(sender, msg.text.markdown)
+                    await client.send_message(channel_id, msg.text.markdown)
                     await edit.delete()
                     return
             if not msg.media:
                 if msg.text:
                     edit = await client.edit_message_text(sender, edit_id, "Cloning.")
-                    await client.send_message(sender, msg.text.markdown)
+                    await client.send_message(channel_id, msg.text.markdown)
                     await edit.delete()
                     return
             edit = await client.edit_message_text(sender, edit_id, "Trying to Download.")
@@ -80,7 +80,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 except Exception:
                     thumb_path = None
                 await client.send_video_note(
-                    chat_id=sender,
+                    chat_id=channel_id,
                     video_note=file,
                     length=height, duration=duration, 
                     thumb=thumb_path,
@@ -102,7 +102,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                 except Exception:
                     thumb_path = None
                 await client.send_video(
-                    chat_id=sender,
+                    chat_id=channel_id,
                     video=file,
                     caption=caption,
                     supports_streaming=True,
@@ -119,11 +119,11 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             
             elif msg.media==MessageMediaType.PHOTO:
                 await edit.edit("Uploading photo.")
-                await bot.send_file(sender, file, caption=caption)
+                await bot.send_file(channel_id, file, caption=caption)
             else:
                 thumb_path=thumbnail(sender)
                 await client.send_document(
-                    sender,
+                    channel_id,
                     file, 
                     caption=caption,
                     thumb=thumb_path,
@@ -164,15 +164,15 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
                         UT = time.time()
                         uploader = await fast_upload(f'{file}', f'{file}', UT, bot, edit, '**UPLOADING:**')
                         attributes = [DocumentAttributeVideo(duration=duration, w=width, h=height, round_message=round_message, supports_streaming=True)] 
-                        await bot.send_file(sender, uploader, caption=caption, thumb=thumb_path, attributes=attributes, force_document=False)
+                        await bot.send_file(channel_id, uploader, caption=caption, thumb=thumb_path, attributes=attributes, force_document=False)
                     elif msg.media==MessageMediaType.VIDEO_NOTE:
                         uploader = await fast_upload(f'{file}', f'{file}', UT, bot, edit, '**UPLOADING:**')
                         attributes = [DocumentAttributeVideo(duration=duration, w=width, h=height, round_message=round_message, supports_streaming=True)] 
-                        await bot.send_file(sender, uploader, caption=caption, thumb=thumb_path, attributes=attributes, force_document=False)
+                        await bot.send_file(channel_id, uploader, caption=caption, thumb=thumb_path, attributes=attributes, force_document=False)
                     else:
                         UT = time.time()
                         uploader = await fast_upload(f'{file}', f'{file}', UT, bot, edit, '**UPLOADING:**')
-                        await bot.send_file(sender, uploader, caption=caption, thumb=thumb_path, force_document=True)
+                        await bot.send_file(channel_id, uploader, caption=caption, thumb=thumb_path, force_document=True)
                     if os.path.isfile(file) == True:
                         os.remove(file)
                 except Exception as e:
@@ -201,7 +201,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
         edit = await client.edit_message_text(sender, edit_id, "Cloning.")
         chat =  msg_link.split("t.me")[1].split("/")[1]
         try:
-            msg = await client.get_messages(chat, msg_id)
+            msg = await client.get_messages(channel_id, chat, msg_id)
             if msg.empty:
                 new_link = f't.me/b/{chat}/{int(msg_id)}'
                 #recurrsion 
